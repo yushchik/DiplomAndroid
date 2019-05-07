@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFAB1E</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FFAB1E</color>
+    <color name="background">#FFFFFF</color>
+    <color name="errorColor">#FF0000</color>
+
+    <color name="blue_color">#3b5998</color>
+    <color name="blue_light_color">#60acb8</color>
+    <color name="purple_color">#FAB000</color>
+    <color name="purple_color2">#FFC161</color>
+    <color name="color_grey_text">#9b9b9b</color>
+    <color name="color_black">#282828</color>
+    <color name="color_grey">#999999</color>
+    <color name="border_grey">#e1e1e1</color>
+</resources>

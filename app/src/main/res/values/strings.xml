@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">diplomMobile</string>
+    <string name="login">У вас уже есть аккаунт?</string>
+    <string name="btnloRegistration">Регистрация</string>
+    <string name="btnLogin">Авторизация</string>
+    <string name="etError">Неверный логин или пароль</string>
+</resources>
