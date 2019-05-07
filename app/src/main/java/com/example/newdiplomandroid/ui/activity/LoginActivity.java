@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.widget.TextView;
 
 
+import com.example.newdiplomandroid.AppSettingsManager;
 import com.example.newdiplomandroid.ConnectivityReceiver;
 import com.example.newdiplomandroid.DiplomApp;
 import com.example.newdiplomandroid.R;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
+    private AppSettingsManager settingsManager;
     Snackbar snackbarInternet;
     @BindView(R.id.btnlogin)
     Button btnlogin;
@@ -55,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        settingsManager = AppSettingsManager.getInstance(this);
         toolbarTextViewHelpTitle.setText("Авторизация");
         btnlogin.setOnClickListener(view1 -> {
             singIn();
@@ -83,10 +86,15 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
     }
 
     private void checkLoginResponse(String s) {
-        String userID = s;
-        Intent intent = new Intent(this, ListTestActivity.class);
-        intent.putExtra("userId", userID);
-        startActivity(intent);
+        settingsManager.setSuccessLogin(true);
+        if (s!= null) {
+            String token = s;
+            settingsManager.setToken(token);
+            settingsManager.setEmail(etName.getText().toString());
+            Intent intent = new Intent(this, AllLessonActivity.class);
+            //intent.putExtra("userId", userID);
+            startActivity(intent);
+        }
     }
     public void checkConnection() {
         boolean isConnected = ConnectivityReceiver.isConnected();

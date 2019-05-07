@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.newdiplomandroid.ui.activity.AllLessonActivity;
 import com.example.newdiplomandroid.ui.activity.LoginActivity;
 import com.example.newdiplomandroid.ui.activity.RegistrationActivity;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                Intent intent = new Intent(MainActivity.this, AllLessonActivity.class);
                 startActivity(intent);
             }
         });

@@ -2,6 +2,9 @@ package com.example.newdiplomandroid.model;
 
 import com.example.newdiplomandroid.model.request.LoginRequest;
 import com.example.newdiplomandroid.model.request.RegistrationRequest;
+import com.example.newdiplomandroid.model.response.AllLessonResponse;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -23,4 +26,7 @@ public interface StatementApi {
     @POST("api/UserAPI/registration")
     Observable<String> requestRegistration(@Header("Content-Type") String content,
                                     @Body RegistrationRequest registrationRequest);
+
+    @GET("api/LessonAPI/AllLesson")
+    Observable<List<AllLessonResponse>> requestAllLesson (@Header("Content-Type") String content);
 }

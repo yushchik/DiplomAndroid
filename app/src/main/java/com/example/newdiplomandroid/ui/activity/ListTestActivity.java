@@ -12,8 +12,7 @@ import butterknife.ButterKnife;
 
 public class ListTestActivity extends AppCompatActivity {
     String userId;
-    @BindView(R.id.tvUser)
-    TextView tvUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +24,5 @@ public class ListTestActivity extends AppCompatActivity {
         if (extras != null) {
             userId = mIntent.getStringExtra("userId");
         }
-        tvUser.setText(userId);
     }
 }

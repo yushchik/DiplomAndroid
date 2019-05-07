@@ -1,0 +1,66 @@
+package com.example.newdiplomandroid.ui.activity;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.newdiplomandroid.DiplomApp;
+import com.example.newdiplomandroid.R;
+import com.example.newdiplomandroid.model.response.AllLessonResponse;
+import com.example.newdiplomandroid.ui.adapter.AllLessonAdapter;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+public class AllLessonActivity extends AppCompatActivity {
+
+    @BindView(R.id.gift_recycler_view)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.tvErrorText)
+    TextView tvErrorText;
+    AllLessonAdapter adapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_all_lesson);
+        ButterKnife.bind(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        initializeData();
+    }
+
+    private void initializeData() {
+
+        String type = "application/json";
+        DiplomApp.getApi().requestAllLesson(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::checkGiftResponse, this::handleGiftError);
+    }
+
+    private void checkGiftResponse(List<AllLessonResponse> allLessonResponses) {
+            if (!allLessonResponses.isEmpty()) {
+                adapter = new AllLessonAdapter(allLessonResponses, this);
+              //  adapter.notifyDataSetChanged();
+
+                mRecyclerView.setAdapter(adapter);
+            } else {
+                tvErrorText.setVisibility(View.VISIBLE);
+            }
+    }
+
+    private void handleGiftError(Throwable throwable) {
+        tvErrorText.setVisibility(View.VISIBLE);
+        Log.e("Observer", "" + throwable.toString());
+    }
+}

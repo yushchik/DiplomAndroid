@@ -92,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void checkLoginResponse(String s) {
         String userID = s;
-        Intent intent = new Intent(this, ListTestActivity.class);
+        Intent intent = new Intent(this, AllLessonActivity.class);
         intent.putExtra("userId", userID);
         startActivity(intent);
     }
