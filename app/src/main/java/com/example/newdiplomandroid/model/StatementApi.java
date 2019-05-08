@@ -3,6 +3,7 @@ package com.example.newdiplomandroid.model;
 import com.example.newdiplomandroid.model.request.LoginRequest;
 import com.example.newdiplomandroid.model.request.RegistrationRequest;
 import com.example.newdiplomandroid.model.response.AllLessonResponse;
+import com.example.newdiplomandroid.model.response.QuizzResponse;
 
 import java.util.List;
 
@@ -29,4 +30,13 @@ public interface StatementApi {
 
     @GET("api/LessonAPI/AllLesson")
     Observable<List<AllLessonResponse>> requestAllLesson (@Header("Content-Type") String content);
+
+    @GET("api/QuizzAPI")
+    Observable<List<QuizzResponse>> requestQuizz (@Header("Content-Type") String content,
+                                                  @Header("lessonId") Integer lessonId);
+
+    @GET("api/LessonAPI/Progress")
+    Observable<String> requestProgress (@Header("Content-Type") String content,
+                                        @Header("userName") String userName);
+
 }

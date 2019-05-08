@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
             settingsManager.setToken(token);
             settingsManager.setEmail(etName.getText().toString());
             Intent intent = new Intent(this, AllLessonActivity.class);
-            //intent.putExtra("userId", userID);
+            intent.putExtra("userId", etName.getText().toString());
             startActivity(intent);
         }
     }

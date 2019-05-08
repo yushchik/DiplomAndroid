@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.example.newdiplomandroid.AppSettingsManager;
 import com.example.newdiplomandroid.DiplomApp;
 import com.example.newdiplomandroid.R;
 import com.example.newdiplomandroid.model.StatementApi;
@@ -52,12 +53,13 @@ public class RegistrationActivity extends AppCompatActivity {
     @BindView(R.id.tvBirthday)
     TextView tvBirthday;
     private int mYear, mMonth, mDay;
-
+    private AppSettingsManager settingsManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
+        settingsManager = AppSettingsManager.getInstance(this);
         toolbarTextViewHelpTitle.setText("Регистрация");
         tvdayOfBirth.setOnClickListener(view1 -> {
             chechBirhday();
@@ -91,9 +93,12 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void checkLoginResponse(String s) {
-        String userID = s;
+        settingsManager.setSuccessLogin(true);
+        String token = s;
+        settingsManager.setToken(token);
+        settingsManager.setEmail(etEmail.getText().toString());
         Intent intent = new Intent(this, AllLessonActivity.class);
-        intent.putExtra("userId", userID);
+        intent.putExtra("userId", etEmail.getText().toString());
         startActivity(intent);
     }
 

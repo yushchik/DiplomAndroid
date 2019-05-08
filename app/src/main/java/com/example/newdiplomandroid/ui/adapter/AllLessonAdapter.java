@@ -25,6 +25,7 @@ import java.util.List;
 public class AllLessonAdapter extends RecyclerView.Adapter<AllLessonAdapter.AllLessonViewHolder> {
     private List<AllLessonResponse> giftList;
     Context context;
+    int progress;
 
 
     public class AllLessonViewHolder extends RecyclerView.ViewHolder {
@@ -43,9 +44,10 @@ public class AllLessonAdapter extends RecyclerView.Adapter<AllLessonAdapter.AllL
         }
     }
 
-    public AllLessonAdapter(List<AllLessonResponse> giftList, Context context) {
+    public AllLessonAdapter(List<AllLessonResponse> giftList, int progress, Context context) {
         this.giftList = giftList;
         this.context = context;
+        this.progress = progress;
     }
 
     @Override
@@ -66,6 +68,15 @@ public class AllLessonAdapter extends RecyclerView.Adapter<AllLessonAdapter.AllL
         AllLessonResponse allLessonResponse = giftList.get(position);
         holder.tvIdLesson.setText(String.valueOf(allLessonResponse.getiD_LESSON()));
         holder.tvPoints.setText(allLessonResponse.getTitlE_LESSON());
+        if(allLessonResponse.getiD_LESSON() > progress + 1)
+        {
+            holder.llPoints.setBackgroundColor(context.getResources().getColor(R.color.color_grey_text));
+            holder.llPoints.setEnabled(false);
+        }
+        else {
+            holder.llPoints.setBackgroundColor(context.getResources().getColor(R.color.background));
+            holder.llPoints.setEnabled(true);
+        }
         holder.llPoints.setOnClickListener(view ->
         {
             Intent intent = new Intent(context, LessonActivity.class);
