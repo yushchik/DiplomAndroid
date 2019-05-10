@@ -22,4 +22,13 @@
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/include3"
         />
+
+    <Button
+        android:id="@+id/btnEndTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Завершить тест"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvQuizz" />
 </android.support.constraint.ConstraintLayout>

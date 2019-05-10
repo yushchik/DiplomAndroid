@@ -2,8 +2,10 @@ package com.example.newdiplomandroid.model;
 
 import com.example.newdiplomandroid.model.request.LoginRequest;
 import com.example.newdiplomandroid.model.request.RegistrationRequest;
+import com.example.newdiplomandroid.model.request.ResultQuizzRequest;
 import com.example.newdiplomandroid.model.response.AllLessonResponse;
 import com.example.newdiplomandroid.model.response.QuizzResponse;
+import com.example.newdiplomandroid.model.response.ResultQuizzResponse;
 
 import java.util.List;
 
@@ -39,4 +41,7 @@ public interface StatementApi {
     Observable<String> requestProgress (@Header("Content-Type") String content,
                                         @Header("userName") String userName);
 
+    @POST("api/QuizzAPI")
+    Observable<List<ResultQuizzResponse>> requestQuizzResult (@Header("Content-Type") String content,
+                                                              @Body List<ResultQuizzRequest> resultQuizzRequests);
 }

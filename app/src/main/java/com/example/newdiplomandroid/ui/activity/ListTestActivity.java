@@ -7,11 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.newdiplomandroid.DiplomApp;
 import com.example.newdiplomandroid.R;
 import com.example.newdiplomandroid.model.response.QuizzResponse;
+import com.example.newdiplomandroid.ui.AdapterInterface;
 import com.example.newdiplomandroid.ui.adapter.AllLessonAdapter;
 import com.example.newdiplomandroid.ui.adapter.QuizzAdapter;
 
@@ -24,9 +27,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ListTestActivity extends AppCompatActivity {
     Integer lessonId;
-QuizzAdapter quizzAdapter;
+    QuizzAdapter quizzAdapter;
     @BindView(R.id.rvQuizz)
     RecyclerView mRecyclerView;
+    @BindView(R.id.btnEndTest)
+    Button btnEndTest;
+    AdapterInterface adapterInterface;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +49,13 @@ QuizzAdapter quizzAdapter;
             lessonId = mIntent.getIntExtra("lessonID", 0);
         }
 
+        btnEndTest.setOnClickListener(v -> {
+            adapterInterface.resultQuizz();
+        });
         initialize(lessonId);
     }
 
-    public void initialize(int lessonID){
+    public void initialize(int lessonID) {
         String type = "application/json";
         DiplomApp.getApi().requestQuizz(type, lessonID)
                 .subscribeOn(Schedulers.io())
@@ -61,6 +72,8 @@ QuizzAdapter quizzAdapter;
             quizzAdapter = new QuizzAdapter(quizzResponses, this);
             //  adapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(quizzAdapter);
+//            int index = rgAnswer.indexOfChild(findViewById(rgAnswer.getCheckedRadioButtonId()));
+//            Log.d("IndexRG", String.valueOf(index));
         }
     }
 }
