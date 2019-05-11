@@ -2,7 +2,6 @@ package com.example.newdiplomandroid.ui.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,30 +17,33 @@ import com.example.newdiplomandroid.R;
 import com.example.newdiplomandroid.model.request.ResultQuizzRequest;
 import com.example.newdiplomandroid.model.response.ChoicesResponse;
 import com.example.newdiplomandroid.model.response.QuizzResponse;
+import com.example.newdiplomandroid.model.response.ResultQuizzResponse;
 import com.example.newdiplomandroid.ui.AdapterInterface;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.v7.widget.RecyclerView.*;
+
 public class QuizzAdapter extends RecyclerView.Adapter<QuizzAdapter.AllLessonViewHolder> implements AdapterInterface  {
 private List<QuizzResponse> giftList;
         Context context;
     int index;
-    View view;
+    View v;
     ResultQuizzRequest resultQuizzRequest;
  ArrayList<ResultQuizzRequest> listresultQuizzRequests;
-public class AllLessonViewHolder extends RecyclerView.ViewHolder {
+public static class AllLessonViewHolder extends ViewHolder {
 
 
-    TextView tvIdLesson, tvPoints;
+    TextView tvIdLesson, tvisCorrect;
     RadioGroup rgAnswer;
     CardView cvGifts;
 
     public AllLessonViewHolder(View view) {
         super(view);
         tvIdLesson = view.findViewById(R.id.tvQuestionTitle);
-       // tvPoints = view.findViewById(R.id.tvPoints);
+        tvisCorrect = view.findViewById(R.id.tvisCorrect);
         cvGifts = view.findViewById(R.id.cvQuizz);
         rgAnswer = view.findViewById(R.id.rgAnswer);
        // llPoints = view.findViewById(R.id.llPoints);
@@ -61,7 +62,7 @@ public class AllLessonViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public QuizzAdapter.AllLessonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quiz, parent, false);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quiz, parent, false);
 
         return new QuizzAdapter.AllLessonViewHolder(v);
     }
@@ -94,8 +95,21 @@ public class AllLessonViewHolder extends RecyclerView.ViewHolder {
                 resultQuizzRequest.setQuestionID(allLessonResponse.getQuestionID());
                 resultQuizzRequest.setQuestionText(allLessonResponse.getQuestionText());
                 listresultQuizzRequests.add(resultQuizzRequest);
-                Log.d("IndexRG", String.valueOf(listresultQuizzRequests));
+//                if( listresultQuizzRequests.size() == 0){
+//
+//                    listresultQuizzRequests.add(resultQuizzRequest);
+//                }
+//                else {
+//                    for (int j = 0; j < listresultQuizzRequests.size(); j++) {
+//                        if (listresultQuizzRequests.get(j).getQuestionID().equals(allLessonResponse.getQuestionID())) {
+//
+//                            listresultQuizzRequests.set(j, resultQuizzRequest);
+//                        }
+//                    }
+//                }
+
             }
+
         });
 
 
@@ -108,8 +122,32 @@ public class AllLessonViewHolder extends RecyclerView.ViewHolder {
         return giftList.size();
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     @Override
-    public void resultQuizz(){
-        Log.d("IndexRG", String.valueOf(listresultQuizzRequests));
+    public ArrayList<ResultQuizzRequest> resultQuizz(){
+        return listresultQuizzRequests;
+    }
+
+
+
+
+    public void TextResult (List<ResultQuizzResponse> resultQuizzResponses){
+        AllLessonViewHolder allLessonViewHolder = new AllLessonViewHolder(v);
+       // allLessonViewHolder.tvisCorrect.setText();
+         for (int i = 0; i < resultQuizzResponses.size(); i++){
+             ResultQuizzResponse resultQuizzResponse2 = resultQuizzResponses.get(i);
+             if(resultQuizzResponse2.isCorrect() == true){
+                 allLessonViewHolder.getAdapterPosition();
+
+                 allLessonViewHolder.tvisCorrect.setText("Не правильно");
+             }
+             else {
+                 allLessonViewHolder.tvisCorrect.setText("правильно");
+             }
+    }
+
     }
 }

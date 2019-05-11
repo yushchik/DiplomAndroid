@@ -11,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.newdiplomandroid.DiplomApp;
 import com.example.newdiplomandroid.R;
+import com.example.newdiplomandroid.model.response.AllLessonResponse;
+import com.example.newdiplomandroid.ui.adapter.AllLessonAdapter;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -20,6 +23,8 @@ import com.google.android.youtube.player.YouTubePlayer.*;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.http.Url;
 
 public class LessonActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
@@ -35,6 +40,7 @@ public class LessonActivity extends YouTubeBaseActivity implements YouTubePlayer
     TextView tvLessonInformation;
     @BindView(R.id.btnStartTest)
     Button btnStartTest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +50,10 @@ public class LessonActivity extends YouTubeBaseActivity implements YouTubePlayer
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             lessonId = mIntent.getIntExtra("lessonId", 0);
-            lessonInformation = mIntent.getStringExtra("lessonInformation");
-            lessonVideo = mIntent.getStringExtra("lessonVideo");
-            lessonTitle = mIntent.getStringExtra("lessonTitle");
         }
-        String[] items = lessonVideo.split("embed/");
-        videoId = items[1];
-        tvLessonTitle.setText(lessonTitle);
-        tvLessonInformation.setText(Html.fromHtml(lessonInformation));
-        vv.initialize(KEY, this);
+        initializeProgress();
+
+
 
         btnStartTest.setOnClickListener(v -> {
             Intent intent = new Intent(this, ListTestActivity.class);
@@ -60,10 +61,27 @@ public class LessonActivity extends YouTubeBaseActivity implements YouTubePlayer
             startActivity(intent);
         });
 
-
-
-
     }
+    private void initializeProgress(){
+
+        String type = "application/json";
+        DiplomApp.getApi().requestOneLesson(type, lessonId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::checkProgressResponse, this::handleProgrssError);
+    }
+
+    private void checkProgressResponse(AllLessonResponse allLessonResponse) {
+        String[] items = allLessonResponse.getVideo().split("embed/");
+        videoId = items[1];
+        tvLessonTitle.setText(allLessonResponse.getTitlE_LESSON());
+        tvLessonInformation.setText(Html.fromHtml(allLessonResponse.getInformation()));
+        vv.initialize(KEY, this);
+    }
+
+    private void handleProgrssError(Throwable throwable) {
+    }
+
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {

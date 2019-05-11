@@ -81,9 +81,9 @@ public class AllLessonAdapter extends RecyclerView.Adapter<AllLessonAdapter.AllL
         {
             Intent intent = new Intent(context, LessonActivity.class);
             intent.putExtra("lessonId", allLessonResponse.getiD_LESSON());
-            intent.putExtra("lessonInformation", allLessonResponse.getInformation());
-            intent.putExtra("lessonVideo", allLessonResponse.getVideo());
-            intent.putExtra("lessonTitle", allLessonResponse.getTitlE_LESSON());
+//            intent.putExtra("lessonInformation", allLessonResponse.getInformation());
+//            intent.putExtra("lessonVideo", allLessonResponse.getVideo());
+//            intent.putExtra("lessonTitle", allLessonResponse.getTitlE_LESSON());
             context.startActivity(intent);
         });
     }

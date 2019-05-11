@@ -17,6 +17,9 @@ public class ResultQuizzRequest {
     @Expose
     private String AnswerQ;
 
+    @SerializedName("isCorrect")
+    @Expose
+    private boolean isCorrect;
 
     public Integer getQuestionID() {
         return QuestionID;
@@ -40,5 +43,13 @@ public class ResultQuizzRequest {
 
     public void setAnswerQ(String answerQ) {
         AnswerQ = answerQ;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 }

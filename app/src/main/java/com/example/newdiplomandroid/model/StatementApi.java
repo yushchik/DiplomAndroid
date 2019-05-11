@@ -28,20 +28,24 @@ public interface StatementApi {
 
     @POST("api/UserAPI/registration")
     Observable<String> requestRegistration(@Header("Content-Type") String content,
-                                    @Body RegistrationRequest registrationRequest);
+                                           @Body RegistrationRequest registrationRequest);
 
     @GET("api/LessonAPI/AllLesson")
-    Observable<List<AllLessonResponse>> requestAllLesson (@Header("Content-Type") String content);
+    Observable<List<AllLessonResponse>> requestAllLesson(@Header("Content-Type") String content);
+
+    @GET("api/LessonAPI/OneLesson")
+    Observable<AllLessonResponse> requestOneLesson(@Header("Content-Type") String content,
+                                                   @Header("id_lesson") Integer lessonId);
 
     @GET("api/QuizzAPI")
-    Observable<List<QuizzResponse>> requestQuizz (@Header("Content-Type") String content,
-                                                  @Header("lessonId") Integer lessonId);
+    Observable<List<QuizzResponse>> requestQuizz(@Header("Content-Type") String content,
+                                                 @Header("lessonId") Integer lessonId);
 
     @GET("api/LessonAPI/Progress")
-    Observable<String> requestProgress (@Header("Content-Type") String content,
-                                        @Header("userName") String userName);
+    Observable<String> requestProgress(@Header("Content-Type") String content,
+                                       @Header("userName") String userName);
 
     @POST("api/QuizzAPI")
-    Observable<List<ResultQuizzResponse>> requestQuizzResult (@Header("Content-Type") String content,
-                                                              @Body List<ResultQuizzRequest> resultQuizzRequests);
+    Observable<List<ResultQuizzResponse>> requestQuizzResult(@Header("Content-Type") String content,
+                                                             @Body List<ResultQuizzRequest> resultQuizzRequests);
 }

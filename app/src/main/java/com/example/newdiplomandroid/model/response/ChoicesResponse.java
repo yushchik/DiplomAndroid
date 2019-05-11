@@ -13,6 +13,11 @@ public class ChoicesResponse {
     @Expose
     private String choiceText;
 
+    @SerializedName("isTrue")
+    @Expose
+    private Integer isTrue;
+
+
     public Integer getChoiceID() {
         return choiceID;
     }
@@ -27,5 +32,13 @@ public class ChoicesResponse {
 
     public void setChoiceText(String choiceText) {
         this.choiceText = choiceText;
+    }
+
+    public Integer getIsTrue() {
+        return isTrue;
+    }
+
+    public void setIsTrue(Integer isTrue) {
+        this.isTrue = isTrue;
     }
 }

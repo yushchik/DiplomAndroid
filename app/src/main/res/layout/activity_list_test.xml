@@ -23,6 +23,13 @@
         app:layout_constraintTop_toBottomOf="@id/include3"
         />
 
+    <TextView
+        android:id="@+id/tvErrorResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvQuizz" />
     <Button
         android:id="@+id/btnEndTest"
         android:layout_width="wrap_content"
@@ -30,5 +37,5 @@
         android:text="Завершить тест"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvQuizz" />
+        app:layout_constraintTop_toBottomOf="@id/tvErrorResult" />
 </android.support.constraint.ConstraintLayout>

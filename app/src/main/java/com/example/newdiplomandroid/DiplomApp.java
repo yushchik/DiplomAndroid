@@ -26,7 +26,7 @@ public class DiplomApp extends Application {
 
     //private static final String BASE_URL = "http://192.168.0.111/WebApplication4/";
     private static final String BASE_URL = "http://192.168.0.111:80/";
-   // private static final String BASE_URL = "http://192.168.0.111:51791/";
+   //private static final String BASE_URL = "http://localhost:5000/";
 
     private Retrofit retrofit;
 
